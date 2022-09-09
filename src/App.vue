@@ -1,26 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <PreviewPage/>
+  <AdamBlock/>
+  <WorkBlock/>
+  <GalleryBlock/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PreviewPage from './components/PreviewPage.vue';
+import AdamBlock from './components/AdamBlock.vue'
+import WorkBlock from "@/components/WorkBlock.vue";
+import GalleryBlock from "@/components/GalleryBlock.vue";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    GalleryBlock,
+    WorkBlock,
+    PreviewPage,
+    AdamBlock
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+*, *::before, *::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  background: #e3e3e3;
+  transition: background 400ms ease-in;
+  font-family: 'Inter', sans-serif;
+}
+
+a {
+  display: block;
+}
+
+svg:not(:root) {
+  overflow: hidden;
 }
 </style>
