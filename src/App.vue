@@ -2,19 +2,22 @@
   <PreviewPage/>
   <AdamBlock/>
   <WorkBlock/>
-  <GalleryBlock/>
+  <AboutBlock/>
+  <FooterBlock/>
 </template>
 
 <script>
 import PreviewPage from './components/PreviewPage.vue';
 import AdamBlock from './components/AdamBlock.vue'
 import WorkBlock from "@/components/WorkBlock.vue";
-import GalleryBlock from "@/components/GalleryBlock.vue";
+import AboutBlock from "@/components/AboutBlock.vue";
+import FooterBlock from "@/components/FooterBlock.vue";
 
 export default {
   name: 'App',
   components: {
-    GalleryBlock,
+    FooterBlock,
+    AboutBlock,
     WorkBlock,
     PreviewPage,
     AdamBlock
@@ -25,7 +28,6 @@ export default {
 <style>
 
 *, *::before, *::after {
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -33,6 +35,8 @@ body {
   background: #e3e3e3;
   transition: background 400ms ease-in;
   font-family: 'Inter', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
 }
 
 a {

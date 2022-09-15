@@ -4,7 +4,7 @@
       <div class="gallery-count-buttons-wrapper">
         <div class="gallery-count-buttons">
           <div class="gallery-button-prev"
-               @click="swiperRef.slidePrev()"
+               @click="onSlidePrev"
                @mouseover="drawPrevCircle"
                @mouseleave="drawPrevCircle($event,true)">
             <svg class="embla__button__svg" id="button-prev"
@@ -20,9 +20,9 @@
           <div class="gallery-counter"><b style="color: #000">{{ currentGallerySlide }}</b>/{{ galleryItems.length }}
           </div>
           <div class="gallery-button-next"
+               @click="onSlideNext"
                @mouseover="drawNextCircle"
-               @mouseleave="drawNextCircle($event,true)"
-               @click="swiperRef.slideNext()">
+               @mouseleave="drawNextCircle($event,true)">
             <svg class="embla__button__svg" id="button-next"
                  fill="none" height="348" viewBox="0 0 587 348" width="587"
                  xmlns="http://www.w3.org/2000/svg">
@@ -41,12 +41,17 @@
           slides-per-view="auto"
           :centeredSlides="true"
           :space-between="50"
+          @swiper="onSwiper"
           @slideChange="onSlideChange"
       >
-        <swiper-slide v-for="slide in galleryItems" :key="slide.imagePath">
+        <swiper-slide
+            v-for="slide in galleryItems"
+            :key="slide.imagePath">
           <img :src="require(`@/assets/gallery/${slide.imagePath}`)" alt="image slide"/>
-          <!--        <div>{{ slide.title }}</div>-->
-          <!--        <div>{{ slide.subtitle }}</div>-->
+          <div class="slide-definition">
+            <div class="slide-definition-title">{{ slide.title }}</div>
+            <div class="slide-definition-subtitle">{{ slide.subtitle }}</div>
+          </div>
         </swiper-slide>
       </swiper>
     </div>
@@ -54,13 +59,12 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import {Swiper, SwiperSlide, useSwiper} from 'swiper/vue';
+import {onMounted, ref} from "vue";
+import {Swiper, SwiperSlide} from 'swiper/vue';
 import 'swiper/css';
 import Vivus from "vivus";
 
-const swiperRef = useSwiper();
-
+const swiperInstance = ref(null);
 const galleryItems = [
   {
     imagePath: 'slide1.jpg',
@@ -69,23 +73,23 @@ const galleryItems = [
   },
   {
     imagePath: 'slide2.jpg',
-    title: 'Lady liberty ascends',
-    subtitle: "Illustrations from Stepping Up Trade Leadership"
+    title: 'Cartograms of the global middle class',
+    subtitle: "From in CSIS's Stepping Up Trade Leadership, these cartograms (triggered on scroll) illustrate how the global middle class is shifting towards East and South Asia."
   },
   {
     imagePath: 'slide3.jpg',
-    title: 'Lady liberty ascends',
-    subtitle: "Illustrations from Stepping Up Trade Leadership"
+    title: 'Valentine Collection I',
+    subtitle: "Every year I draw Valentines for my friends... they are mostly puns."
   },
   {
     imagePath: 'slide4.jpg',
-    title: 'Lady liberty ascends',
-    subtitle: "Illustrations from Stepping Up Trade Leadership"
+    title: 'Valentine Collection II',
+    subtitle: "More hand-drawn Valentines."
   },
   {
     imagePath: 'slide5.jpg',
-    title: 'Lady liberty ascends',
-    subtitle: "Illustrations from Stepping Up Trade Leadership"
+    title: 'Beeswarms of survey results',
+    subtitle: "I conceptualized and created these data visualizations for CSIS's report. Public Opinion in China: A Liberal Silent Majority?"
   },
 ]
 let animButtonPrev = null;
@@ -106,6 +110,22 @@ onMounted(() => {
 
 const currentGallerySlide = ref(1)
 
+const onSwiper = (swiper) => {
+  swiperInstance.value = swiper;
+};
+
+const onSlideNext = () => {
+  if (swiperInstance.value.allowSlideNext) {
+    swiperInstance.value.slideNext()
+  }
+}
+
+const onSlidePrev = () => {
+  if (swiperInstance.value.allowSlidePrev) {
+    swiperInstance.value.slidePrev()
+  }
+}
+
 const onSlideChange = (swiper) => {
   currentGallerySlide.value = swiper.activeIndex + 1
 };
@@ -120,7 +140,8 @@ const drawNextCircle = (_, reverse = false) => {
 
 <style scoped>
 .gallery-block-container {
-  margin-top: 150px
+  margin-top: 150px;
+  padding-bottom: 15.6rem;
 }
 
 .gallery-count-block {
@@ -141,6 +162,7 @@ const drawNextCircle = (_, reverse = false) => {
 }
 
 .gallery-button-prev {
+  cursor: pointer;
   width: 100px;
   height: 50px;
   margin-right: 1rem;
@@ -152,6 +174,7 @@ const drawNextCircle = (_, reverse = false) => {
 }
 
 .gallery-button-next {
+  cursor: pointer;
   width: 100px;
   height: 50px;
   margin-left: 1rem;
@@ -177,14 +200,33 @@ const drawNextCircle = (_, reverse = false) => {
   height: 100%;
 }
 
-.swiper-slide {
-  background: green;
-}
-
 .swiper-slide img {
   display: block;
   width: 100%;
   object-fit: cover;
+}
+
+.slide-definition {
+  margin-top: 1.5rem;
+  display: none;
+  animation: fadeInUp; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: .5s; /* don't forget to set a duration! */
+}
+
+.swiper-slide-active .slide-definition {
+  opacity: 1;
+  display: block;
+}
+
+.slide-definition-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.slide-definition-subtitle {
+  color: rgba(0, 0, 0, .6);
 }
 
 /*За этот треш стыдно, но апи этой либы не предоставляет возможности работать с динамической шириной*/

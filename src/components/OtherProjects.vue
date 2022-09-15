@@ -4,7 +4,8 @@
       <h2 class="other-projects-title">Other projects</h2>
       <div
           v-for="(job, idx) in otherJobs"
-          :key="idx" class="accordion__item"
+          :key="idx"
+          class="accordion__item wow other-projects-animation"
           :class="job.isActive && 'accordion__item_show'">
         <div class="accordion__header" @click="openJob(idx)">
           <div>
@@ -452,5 +453,9 @@ const openJob = (idx) => {
   font-size: 40px;
   font-weight: 500;
   margin-bottom: 3rem;
+}
+.other-projects-animation {
+  animation: fadeInUp; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: .5s; /* don't forget to set a duration! */
 }
 </style>

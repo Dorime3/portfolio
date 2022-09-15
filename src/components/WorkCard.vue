@@ -1,6 +1,6 @@
 <template>
   <a href="#" style="text-decoration: none">
-    <div class="card">
+    <div class="card wow card-animation">
       <div>
         <div class="type-work">{{ job.type }}</div>
 
@@ -34,6 +34,11 @@ onMounted(() => {
   border-top: 2px solid rgba(0, 0, 0, .15);
   transition: all 400ms ease-in-out;
   width: 400px;
+}
+
+.card-animation {
+  animation: fadeInUp; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: .5s; /* don't forget to set a duration! */
 }
 
 .card:hover {

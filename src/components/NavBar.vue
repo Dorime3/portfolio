@@ -62,11 +62,10 @@ export default {}
   width: 100%;
   height: 2px;
   background-color: #000;
-  transition: all 200ms ease-in-out;
+  transition: left 200ms ease-in-out;
   content: "";
 }
 .navbar-link:hover::before {
   left: 0;
-  visibility: visible;
 }
 </style>

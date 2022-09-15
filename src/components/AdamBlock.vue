@@ -1,8 +1,9 @@
 <template>
   <div class="adam-block">
     <div class="adam-img">
-      <div class="fuck">
-        <svg id="adam-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1968 1328" width="1968" height="1328"
+      <div class="adam-svg-container">
+        <svg id="adam-svg"
+             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1968 1328" width="1968" height="1328"
              preserveAspectRatio="xMidYMid meet"
              style="width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px);">
           <g clip-path="url(#__lottie_element_4)">
@@ -481,7 +482,7 @@ onMounted(() => {
   background-position: 0% 100%;
 }
 
-.fuck {
+.adam-svg-container {
   display: inline-block;
   margin-top: -180px;
 }
